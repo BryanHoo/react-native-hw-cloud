@@ -1,5 +1,20 @@
 import { NativeModules, Platform } from 'react-native';
 
+interface IUploadConfig {
+  endPoint: string;
+  ak: string;
+  sk: string;
+  token: string;
+  bucketName: string;
+  objectName: string;
+  filePath: string;
+  socketTimeout?: number;
+  connectionTimeout?: number;
+  taskNum?: number;
+  partSize?: number;
+  checkpoint?: boolean;
+}
+
 const LINKING_ERROR =
   `The package 'react-native-hw-cloud' doesn't seem to be linked. Make sure: \n\n` +
   Platform.select({ ios: "- You have run 'pod install'\n", default: '' }) +
@@ -17,6 +32,6 @@ const HwCloud = NativeModules.HwCloud
       }
     );
 
-export function multiply(a: number, b: number): Promise<number> {
-  return HwCloud.multiply(a, b);
+export function upload(config: IUploadConfig): Promise<any> {
+  return HwCloud.upload(config);
 }
